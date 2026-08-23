@@ -7,6 +7,7 @@
 
 const PLAN_BADGE_CLASSES: Record<string, string> = {
   trial: "bg-slate-100 text-slate-600",       // #f1f5f9 / #475569
+  free: "bg-emerald-50 text-emerald-700",     // free tier (dark-launched 2026-08)
   starter: "bg-blue-50 text-blue-700",        // #eff6ff / #1d4ed8
   growth: "bg-purple-100 text-violet-600",    // #f3e8ff / #7c3aed (mixed palette)
   pro: "bg-amber-100 text-amber-800",         // #fef3c7 / #92400e

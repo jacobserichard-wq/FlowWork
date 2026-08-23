@@ -147,13 +147,15 @@ export async function POST(request: NextRequest) {
             await pool.query(
               "UPDATE clients SET plan = $1, stripe_customer_id = $2, " +
               "stripe_subscription_id = $3, past_due_since = NULL, " +
+              "upgrade_required_at = NULL, " +
               "updated_at = NOW() WHERE id = $4",
               [plan, customerId, subscription.id, clientId]
             );
           } else {
             await pool.query(
               "UPDATE clients SET plan = $1, stripe_subscription_id = $2, " +
-              "past_due_since = NULL, updated_at = NOW() " +
+              "past_due_since = NULL, upgrade_required_at = NULL, " +
+              "updated_at = NOW() " +
               "WHERE stripe_customer_id = $3",
               [plan, subscription.id, customerId]
             );

@@ -32,6 +32,9 @@ export async function GET() {
       email: client.email,
       businessName: client.business_name,
       trialEndsAt: client.trial_ends_at,
+      // Free-tier grace clock — set when lifetime tracked sales cross
+      // the threshold (lib/freeTier.ts); null otherwise.
+      upgradeRequiredAt: client.upgrade_required_at ?? null,
       stripeCustomerId: client.stripe_customer_id,
       stripeSubscriptionId: client.stripe_subscription_id,
       usage: {

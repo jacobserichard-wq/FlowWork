@@ -30,7 +30,7 @@ export type PaidPlanName =
   | "band6"
   | "band7";
 
-export type PlanName = "trial" | PaidPlanName | "canceled";
+export type PlanName = "trial" | "free" | PaidPlanName | "canceled";
 
 export type ServiceTier = "standard" | "priority" | "premium";
 
@@ -124,14 +124,16 @@ export function getPlanFeatures(plan: string): PlanFeatures {
   };
 }
 
-/** True when the plan has full feature access — trial, any band, a
- *  not-yet-migrated legacy paid name, or an active Shopify App
- *  Pricing subscription ('shopify', billed by Shopify — see
+/** True when the plan has full feature access — trial, the free tier
+ *  (full features until $500 lifetime tracked sales — lib/freeTier.ts),
+ *  any band, a not-yet-migrated legacy paid name, or an active Shopify
+ *  App Pricing subscription ('shopify', billed by Shopify — see
  *  lib/shopifyAppPricing.ts). Canceled returns false. */
 export function isPayingTier(plan: string | null | undefined): boolean {
   if (!plan) return false;
   return (
     plan === "trial" ||
+    plan === "free" ||
     plan === "shopify" ||
     BAND_IDS.has(plan) ||
     LEGACY_PAID.has(plan)
@@ -198,6 +200,7 @@ export const TIER_DISPLAY: Record<
 export function planDisplayLabel(plan: string | null | undefined): string {
   if (!plan) return "";
   if (plan === "trial") return "Trial";
+  if (plan === "free") return "Free";
   if (plan === "canceled") return "Canceled";
   const band = BAND_BY_ID[plan as PaidPlanName];
   if (band) return `$${band.price}/mo`;

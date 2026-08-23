@@ -15,6 +15,7 @@ interface BillingData {
   email: string;
   businessName: string;
   trialEndsAt: string | null;
+  upgradeRequiredAt: string | null;
   stripeCustomerId: string | null;
   stripeSubscriptionId: string | null;
   usage: {
@@ -34,12 +35,17 @@ interface BillingData {
 
 /** Display metadata for the non-paid plan states. */
 const STATE_DISPLAY: Record<
-  "trial" | "canceled",
+  "trial" | "free" | "canceled",
   { name: string; price: string }
 > = {
   trial: { name: "Free Trial", price: "$0" },
+  free: { name: "Free", price: "$0" },
   canceled: { name: "Canceled", price: "$0" },
 };
+
+/** Grace-window length shown on the crossed-threshold notice — keep in
+ *  sync with FREE_TIER_GRACE_DAYS (lib/freeTier.ts, server-only). */
+const GRACE_DAYS = 14;
 
 function fmtRevenueBracket(low: number, high: number): string {
   const fmtK = (n: number) =>
@@ -180,11 +186,11 @@ export default function BillingPage() {
   const paidTier = TIER_DISPLAY[billing.plan as PaidPlanName];
   const currentPlanName = paidTier
     ? paidTier.name
-    : STATE_DISPLAY[billing.plan as "trial" | "canceled"]?.name ??
+    : STATE_DISPLAY[billing.plan as "trial" | "free" | "canceled"]?.name ??
       STATE_DISPLAY.trial.name;
   const currentPlanPrice = paidTier
     ? `$${paidTier.priceMonthly}/mo`
-    : STATE_DISPLAY[billing.plan as "trial" | "canceled"]?.price ??
+    : STATE_DISPLAY[billing.plan as "trial" | "free" | "canceled"]?.price ??
       STATE_DISPLAY.trial.price;
   const currentPlanBracket = paidTier
     ? fmtRevenueBracket(paidTier.revenueLow, paidTier.revenueHigh)
@@ -197,7 +203,13 @@ export default function BillingPage() {
       ]
     : billing.plan === "canceled"
       ? ["Dashboard only — reactivate to restore full access"]
-      : ["Full access during your 14-day trial"];
+      : billing.plan === "free"
+        ? [
+            "Every product feature",
+            "All integrations",
+            "Free until your first $500 in tracked sales",
+          ]
+        : ["Full access during your 14-day trial"];
   const usagePct = billing.usage.maxItems
     ? Math.min(Math.round((billing.usage.itemsThisMonth / billing.usage.maxItems) * 100), 100)
     : null;
@@ -252,6 +264,32 @@ export default function BillingPage() {
                 day: "numeric",
                 year: "numeric",
               })}
+            </div>
+          )}
+
+          {billing.plan === "free" && !billing.upgradeRequiredAt && (
+            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 py-2.5 px-4 rounded-lg text-sm mb-5">
+              You&apos;re on the free plan — every feature included, free
+              until your first $500 in tracked sales. No card on file, no
+              clock running.
+            </div>
+          )}
+
+          {billing.plan === "free" && billing.upgradeRequiredAt && (
+            <div className="bg-yellow-50 border border-amber-300 text-amber-900 py-2.5 px-4 rounded-lg text-sm mb-5">
+              <strong>Congrats — you&apos;ve crossed $500 in tracked
+              sales.</strong>{" "}
+              That means your business has outgrown the free plan. Choose
+              your plan by{" "}
+              {new Date(
+                new Date(billing.upgradeRequiredAt).getTime() +
+                  GRACE_DAYS * 24 * 60 * 60 * 1000
+              ).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}{" "}
+              to keep full access — until then everything keeps working.
             </div>
           )}
 
@@ -345,7 +383,9 @@ export default function BillingPage() {
             computed server-side from their revenue. Paying users change
             via the "Manage subscription" portal button in the card
             above (and the cron auto-adjusts their band monthly). */}
-        {(billing.plan === "trial" || billing.plan === "canceled") && (
+        {(billing.plan === "trial" ||
+          billing.plan === "free" ||
+          billing.plan === "canceled") && (
           <button
             onClick={startCheckout}
             disabled={actionLoading === "checkout"}
@@ -358,7 +398,9 @@ export default function BillingPage() {
               ? "Starting checkout..."
               : billing.plan === "canceled"
                 ? "Reactivate subscription"
-                : "Start your subscription"}
+                : billing.plan === "free" && billing.upgradeRequiredAt
+                  ? "Choose your plan"
+                  : "Start your subscription"}
           </button>
         )}
       </div>

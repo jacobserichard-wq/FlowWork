@@ -31,6 +31,7 @@ import {
   isFirstOfMonthUtc,
   cacheAllRevenue,
 } from "@/lib/revenueTier";
+import { settleExpiredTrials, enforceFreeTier } from "@/lib/freeTier";
 import { recordInventorySnapshot } from "@/lib/inventory/valuation";
 import {
   ensureFreshToken as etsyEnsureFreshToken,
@@ -192,6 +193,27 @@ export async function GET(req: NextRequest) {
       ({ cached: revenueCached } = await cacheAllRevenue());
     } catch (err) {
       console.error("Revenue cache pass failed:", err);
+    }
+
+    // Daily: free-tier lifecycle (dark-launched — see lib/freeTier.ts).
+    // Expired card-less trials soft-land on 'free'; free accounts that
+    // cross $500 lifetime tracked sales get a 14-day grace clock, then
+    // read-only. is_test + Shopify-billed rows are excluded inside.
+    let freeTierSettled = 0;
+    let freeTierClocks = 0;
+    let freeTierLockouts = 0;
+    try {
+      ({ settled: freeTierSettled } = await settleExpiredTrials());
+      const ft = await enforceFreeTier();
+      freeTierClocks = ft.clockStarted;
+      freeTierLockouts = ft.lockedOut;
+      if (ft.clockStarted || ft.lockedOut || ft.clockCleared || freeTierSettled) {
+        console.log(
+          `[cron] free tier: settled ${freeTierSettled}, clocks started ${ft.clockStarted}, cleared ${ft.clockCleared}, lockouts ${ft.lockedOut}`
+        );
+      }
+    } catch (err) {
+      console.error("[cron] free-tier pass failed:", err);
     }
 
     // Sub-session 33: the Pro onboarding-call offering was removed,
@@ -1078,6 +1100,9 @@ export async function GET(req: NextRequest) {
       pastDueReminders,
       pastDueCutoffs,
       revenueCached,
+      freeTierSettled,
+      freeTierClocks,
+      freeTierLockouts,
       reclassifyClientsProcessed,
       reclassifyItemsTotal,
       reclassifyErrors,
