@@ -32,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
     },
     { path: "/for/candle-makers", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/for/etsy-sellers", priority: 0.8, changeFrequency: "monthly" },
     { path: "/privacy", priority: 0.2, changeFrequency: "yearly" },
     { path: "/terms", priority: 0.2, changeFrequency: "yearly" },
   ];

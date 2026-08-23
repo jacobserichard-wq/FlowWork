@@ -464,6 +464,13 @@ export default async function MarketingLandingPage() {
           </Link>
           <span className="text-sand">{"\u{00B7}"}</span>
           <Link
+            href="/for/etsy-sellers"
+            className="text-bark no-underline mx-2 hover:text-forest"
+          >
+            Etsy sellers
+          </Link>
+          <span className="text-sand">{"\u{00B7}"}</span>
+          <Link
             href="/compare/craftybase"
             className="text-bark no-underline mx-2 hover:text-forest"
           >
