@@ -366,6 +366,19 @@ export async function shopifyGraphql<T = unknown>(opts: {
   return payload.data;
 }
 
+/** Kill-switch for the protected customer block (buyer name). While
+ *  the App Store review is in flight, SHOPIFY_CUSTOMER_FIELDS=off in
+ *  the prod env means order queries NEVER request the customer field,
+ *  so the pre-approval protected-data denial cannot occur in any
+ *  phrasing (review 2.1.4, rounds 1 AND 2 both died on it). Buyers
+ *  show as "Unknown" — the intended pre-approval behavior anyway.
+ *  After approval activates our grant, delete the env var (default is
+ *  on) and buyer names flow again. The denial matcher below stays as
+ *  the second net for the transition window. */
+export function customerFieldsEnabled(): boolean {
+  return process.env.SHOPIFY_CUSTOMER_FIELDS !== "off";
+}
+
 /** True when an error message is Shopify refusing protected customer
  *  data (name/email/etc.) — the state every store is in until our
  *  protected-data approval activates at App Store review approval.
@@ -622,7 +635,7 @@ export async function listOrders(opts: {
 
   let data;
   try {
-    data = await page(true);
+    data = await page(customerFieldsEnabled());
   } catch (err) {
     // Whole-query protected-data denial (pre-approval store where
     // Shopify rejects the operation outright instead of nulling the
@@ -666,7 +679,7 @@ export async function getOrder(opts: {
     });
   let data;
   try {
-    data = await fetchOne(true);
+    data = await fetchOne(customerFieldsEnabled());
   } catch (err) {
     if (err instanceof Error && isProtectedDataDenial(err.message)) {
       data = await fetchOne(false);
