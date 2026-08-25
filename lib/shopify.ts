@@ -368,10 +368,23 @@ export async function shopifyGraphql<T = unknown>(opts: {
 
 /** True when an error message is Shopify refusing protected customer
  *  data (name/email/etc.) — the state every store is in until our
- *  protected-data approval activates at App Store review approval. */
+ *  protected-data approval activates at App Store review approval.
+ *
+ *  Review round 2 (2026-08-25, ref 126348): on the reviewer's store
+ *  the live denial reads "Access denied for customer field. Required
+ *  access: `read_customers` access scope." — "Access denied" with a
+ *  SPACE, which the old ACCESS_DENIED (underscore) alternative missed,
+ *  so the tolerance/retry never fired and the backfill imported 0
+ *  orders (captured verbatim in shopify_connections.last_sync_error).
+ *  Match every observed phrasing, keyed on the customer field/scope so
+ *  unrelated denials (e.g. missing read_products) still throw loudly. */
 export function isProtectedDataDenial(message: string): boolean {
-  return /protected customer data|not approved to access|ACCESS_DENIED/i.test(
-    message
+  return (
+    /protected customer data|not approved to access|ACCESS_DENIED/i.test(
+      message
+    ) ||
+    (/access denied/i.test(message) &&
+      /customer|read_customers/i.test(message))
   );
 }
 
