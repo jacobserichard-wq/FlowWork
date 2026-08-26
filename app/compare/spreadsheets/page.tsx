@@ -11,7 +11,7 @@ import Link from "next/link";
 import SignInButton from "../../components/SignInButton";
 
 export const metadata = {
-  title: "Dreamward vs. spreadsheets — COGS & inventory without broken formulas",
+  title: "Beyond the Spreadsheet: COGS Tracking for Makers",
   description:
     "Outgrew your inventory spreadsheet? See why makers move from Excel/Google Sheets to Dreamward: per-SKU cost of goods that calculates itself, costs that never rewrite last year's profit, live stock from synced sales, and a one-click Schedule-C P&L.",
   openGraph: {

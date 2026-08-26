@@ -11,7 +11,7 @@ import SignInButton from "../../components/SignInButton";
 import PriceSlider from "../../components/PriceSlider";
 
 export const metadata = {
-  title: "Dreamward for candle makers — true cost per pour, margin per scent",
+  title: "Candle Making Cost & Inventory Tracking",
   description:
     "Recipe costing down to the last gram of fragrance oil, batch pours that update your stock automatically, and real margin per scent across Etsy, markets, and wholesale — Schedule-C ready, from $10/month.",
 };

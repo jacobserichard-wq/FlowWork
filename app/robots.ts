@@ -25,9 +25,17 @@ export default function robots(): MetadataRoute.Robots {
         "/inventory",
         "/invoices",
         "/reports",
-        "/events",
-        "/market-day",
-        "/profitability",
+        // SEO work order 2026-08-26 (Task 2): Disallow is a PREFIX
+        // match, and "market day" / "events" / "profitability" are the
+        // marketing vocabulary — a bare "/market-day" would also block
+        // future marketing pages like /market-day-calculator. Scope the
+        // three phrase-collision routes: "$" (Google-supported) blocks
+        // exactly the app page; the "/…/" form covers children.
+        // Marketing pages live under /tools/ and /guides/, unaffected.
+        "/events$",
+        "/events/",
+        "/market-day$",
+        "/profitability$",
         "/welcome-pro",
       ],
     },

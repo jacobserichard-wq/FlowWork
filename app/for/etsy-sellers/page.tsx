@@ -16,7 +16,7 @@ import SignInButton from "../../components/SignInButton";
 import PriceSlider from "../../components/PriceSlider";
 
 export const metadata = {
-  title: "Dreamward for Etsy sellers — know your margin after fees",
+  title: "Etsy Bookkeeping & COGS Tracking for Sellers",
   description:
     "Bookkeeping for Etsy sellers who also sell at markets and fairs. Import your Etsy order CSV, track true product costs, and see real per-product margin after materials — plus a Schedule-C-ready P&L, from $10/month.",
 };

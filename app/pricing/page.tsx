@@ -17,7 +17,11 @@ import PriceSlider from "../components/PriceSlider";
 import { PLAN_FEATURE_GROUPS } from "@/lib/plans";
 
 export const metadata = {
-  title: "Pricing",
+  title: {
+    // SEO work order 2026-08-26: navigational page keeps brand-first;
+    // absolute avoids double-suffixing via the layout template.
+    absolute: "Dreamward Pricing: From $10/mo, Priced by Revenue",
+  },
   description:
     "Every feature on every tier. Priced by your business size, not by feature gates. Starts at $10/month — your tier auto-adjusts as you grow.",
 };

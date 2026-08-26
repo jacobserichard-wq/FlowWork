@@ -17,7 +17,7 @@ import SignInButton from "../../components/SignInButton";
 import FaqSection from "../../components/FaqSection";
 
 export const metadata = {
-  title: "Dreamward vs QuickBooks — maker COGS QuickBooks Online can't do",
+  title: "QuickBooks Alternative for Handmade Sellers",
   description:
     "A QuickBooks alternative for handmade businesses: recipe/material COGS, per-channel margin, and in-person market P&L that QuickBooks Online doesn't offer — every feature on every plan, from $10/month.",
   openGraph: {

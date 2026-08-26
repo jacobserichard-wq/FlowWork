@@ -24,8 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/how-it-works", priority: 0.8, changeFrequency: "monthly" },
     { path: "/compare", priority: 0.8, changeFrequency: "monthly" },
     { path: "/compare/craftybase", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/compare/stocksmith", priority: 0.8, changeFrequency: "monthly" },
     { path: "/compare/quickbooks", priority: 0.8, changeFrequency: "monthly" },
     { path: "/compare/spreadsheets", priority: 0.7, changeFrequency: "monthly" },
+    {
+      path: "/tools/market-day-calculator",
+      priority: 0.9,
+      changeFrequency: "monthly",
+    },
+    { path: "/guides", priority: 0.6, changeFrequency: "weekly" },
     {
       path: "/for/farmers-market-vendors",
       priority: 0.8,

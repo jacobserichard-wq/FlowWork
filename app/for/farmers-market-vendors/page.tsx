@@ -15,7 +15,7 @@ import SignInButton from "../../components/SignInButton";
 import PriceSlider from "../../components/PriceSlider";
 
 export const metadata = {
-  title: "Dreamward for farmers market vendors — one P&L for booth + online",
+  title: "Farmers Market Bookkeeping: Profit Per Market Day",
   description:
     "Track every market as its own P&L: booth fees, mileage, and the day's sales in one place — plus your Etsy, Shopify, and Square sales. Real per-product margin and a Schedule-C-ready P&L, from $10/month.",
 };

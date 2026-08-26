@@ -31,7 +31,11 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 import { PLAN_FEATURE_GROUPS } from "@/lib/plans";
 
 export const metadata = {
-  title: "Dreamward — one P&L for makers who sell at markets and online",
+  // SEO work order 2026-08-26 (Task 1): query-first title. NOTE: the
+  // layout's "%s · Dreamward" template does NOT apply here — a title
+  // template only affects child segments, and app/page.tsx shares the
+  // root segment — so the suffix is spelled out.
+  title: "Profit Tracking for Makers: Markets + Online · Dreamward",
   description:
     "The financial command center for makers who sell in person and online. Track real margin across every market, your Square sales, and imported Shopify, Wix & Etsy orders in one honest P&L — Schedule-C ready, with effective-date COGS that never rewrites your past numbers.",
   openGraph: {
@@ -468,6 +472,20 @@ export default async function MarketingLandingPage() {
             className="text-bark no-underline mx-2 hover:text-forest"
           >
             Etsy sellers
+          </Link>
+          <span className="text-sand">{"\u{00B7}"}</span>
+          <Link
+            href="/tools/market-day-calculator"
+            className="text-bark no-underline mx-2 hover:text-forest"
+          >
+            Market-day calculator
+          </Link>
+          <span className="text-sand">{"\u{00B7}"}</span>
+          <Link
+            href="/guides"
+            className="text-bark no-underline mx-2 hover:text-forest"
+          >
+            Guides
           </Link>
           <span className="text-sand">{"\u{00B7}"}</span>
           <Link

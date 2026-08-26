@@ -10,7 +10,10 @@ import HowItWorks from "../components/HowItWorks";
 import SignInButton from "../components/SignInButton";
 
 export const metadata = {
-  title: "How it works",
+  title: {
+    // SEO work order 2026-08-26: navigational page keeps brand-first.
+    absolute: "How Dreamward Works: Market-Day P&L in 4 Steps",
+  },
   description:
     "How Dreamward works, in plain English: your sales and costs come in, each transaction gets labeled, Dreamward does the math, and you get tax-ready answers.",
 };
