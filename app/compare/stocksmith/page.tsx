@@ -1,18 +1,18 @@
-// app/compare/craftybase/page.tsx
+// app/compare/stocksmith/page.tsx
 //
-// Named head-to-head: Dreamward vs Craftybase. Captures the
-// "Craftybase alternative" search intent that the generic /compare
-// page gives up (positioning refresh P2).
+// Named head-to-head: Dreamward vs Stocksmith — the NEW name for
+// Craftybase (rebrand confirmed + pricing checked at stocksmith.io
+// 2026-08-26). A separate page from /compare/craftybase on purpose
+// (SEO work order Task 5): the old name will be searched for years
+// while the new-name query is thin and winnable. Cross-linked with
+// plain prose, NOT a redirect.
 //
 // IMPORTANT — accuracy discipline (named competitor): every claim in
-// the "Craftybase" column is limited to what's publicly documented
-// about the product (averaging/real-time recosting, tiered plan limits,
-// an online/handmade-inventory focus). We do NOT assert defects
-// ("buggy", "corrupts data", "quietly rewrites") — those are fine on
-// the generic page but become risky factual assertions once a real
-// company is named. Lead with Dreamward's verifiable positives; keep
-// the contrast factual + hedged. Re-verify against Craftybase's live
-// pricing/docs before making claims stronger.
+// the "Stocksmith" column is limited to what's publicly documented
+// (weighted-average recosting, tiered plan limits, online/handmade
+// inventory focus, their published pricing). No defect assertions.
+// Re-verify pricing at stocksmith.io/pricing before strengthening
+// any claim; the dated line in the table caption is the contract.
 //
 // Pure server component (public route). SignInButton is the client
 // island for the CTA.
@@ -22,20 +22,20 @@ import SignInButton from "../../components/SignInButton";
 import FaqSection from "../../components/FaqSection";
 
 export const metadata = {
-  // SEO work order 2026-08-26: query-first; layout template appends
-  // the brand suffix.
-  title: "Craftybase Alternative for In-Person Sellers",
+  // Query-first (SEO work order Task 1 convention); the root layout
+  // template appends "· Dreamward".
+  title: "Stocksmith Alternative for In-Person Sellers",
   description:
-    "Compare Dreamward to Craftybase: FIFO costing that never rewrites history, every feature on every plan, and pricing that scales with your revenue — plus in-person market P&L that online-only inventory tools skip.",
+    "Stocksmith is Craftybase under a new name. Compare it to Dreamward: FIFO costing that never rewrites history, every feature on every plan from $10/month, and in-person market P&L that inventory-first tools skip.",
   openGraph: {
-    title: "Dreamward vs Craftybase",
+    title: "Dreamward vs Stocksmith",
     description:
-      "A Craftybase alternative built for makers who sell in person AND online: FIFO costing, every feature on every plan, from $10/month.",
+      "A Stocksmith alternative built for makers who sell in person AND online: FIFO costing, every feature on every plan, from $10/month.",
     type: "website",
   },
 };
 
-export default function CraftybaseComparePage() {
+export default function StocksmithComparePage() {
   return (
     <div className="min-h-screen bg-oat font-sans text-forest">
       {/* Header */}
@@ -58,16 +58,18 @@ export default function CraftybaseComparePage() {
 
         <div className="max-w-[1100px] mx-auto px-4 sm:px-8 pt-12 sm:pt-20 pb-12 sm:pb-16 text-center">
           <p className="text-xs uppercase tracking-widest text-stone mb-3">
-            Dreamward vs Craftybase
+            Dreamward vs Stocksmith
           </p>
           <h1 className="font-serif text-3xl sm:text-5xl font-semibold m-0 mb-4 leading-[1.1] text-forest tracking-tight">
-            Looking for a Craftybase alternative?
+            Looking at Stocksmith? Start here.
           </h1>
           <p className="text-lg sm:text-xl text-bark max-w-2xl mx-auto m-0 mb-8 leading-relaxed">
-            Real-time margin tracking, FIFO costing that doesn&apos;t rewrite
-            history, and every feature on every plan — built for makers who
-            sell in person <span className="text-eucalyptus-dark">and</span>{" "}
-            online. Starting at $10/month.
+            First, the confusion: <strong>Stocksmith is Craftybase</strong> —
+            same team, same software, new name. If you&apos;re comparing
+            maker inventory tools, here&apos;s how Dreamward is built
+            differently: FIFO costing that never rewrites history, every
+            feature on every plan, and in-person markets as first-class
+            P&amp;L. Starting at $10/month.
           </p>
           <SignInButton label="Start free 14-day trial" />
           <p className="text-xs text-stone mt-4">
@@ -76,7 +78,7 @@ export default function CraftybaseComparePage() {
         </div>
       </header>
 
-      {/* Quick-read table — every "Craftybase" cell is a documented fact,
+      {/* Quick-read table — every "Stocksmith" cell is a documented fact,
           not a defect claim. */}
       <section className="max-w-[1100px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <div className="text-center mb-8">
@@ -84,8 +86,8 @@ export default function CraftybaseComparePage() {
             The quick read
           </h2>
           <p className="text-sm text-bark m-0">
-            Both track recipe COGS well. Here&apos;s where Dreamward is built
-            differently.
+            Both track recipe COGS well. Here&apos;s where the two genuinely
+            diverge.
           </p>
         </div>
         <div className="bg-cream rounded-2xl border border-sand overflow-x-auto">
@@ -96,7 +98,7 @@ export default function CraftybaseComparePage() {
                   What you actually care about
                 </th>
                 <th className="text-left py-3 px-4 font-semibold text-bark">
-                  Craftybase
+                  Stocksmith
                 </th>
                 <th className="text-left py-3 px-4 font-semibold text-eucalyptus-dark">
                   Dreamward
@@ -116,42 +118,36 @@ export default function CraftybaseComparePage() {
               />
               <ComparisonRow
                 feature="Every feature on every plan"
-                them="Plans cap what you track; price scales with limits"
+                them="Plans scale by features and tracking limits"
                 us="Yes — all of it, from $10/mo"
               />
               <ComparisonRow
                 feature="What sets your price"
-                them="Usage tier / object & transaction limits"
-                us="Your revenue band — auto-adjusts as you grow"
+                them="Plan tier: Pro $20 · Studio $49 · Indie $99 · Business $199 · Growth $349 /mo"
+                us="Your revenue band — $10 to $99/mo, auto-adjusts as you grow"
               />
               <ComparisonRow
                 feature="Schedule-C P&L + Form 1125-A inventory value"
                 them="COGS + inventory tracking focus"
                 us="On your tax report automatically, every plan"
               />
-              <ComparisonRow
-                feature="Entry price (billed monthly)"
-                them="Stocksmith: Pro $20 · Studio $49 · Indie $99 · Business $199 · Growth $349"
-                us="$10 — every feature + all channels included"
-              />
             </tbody>
           </table>
         </div>
         <p className="text-center text-[11px] text-stone mt-3 max-w-2xl mx-auto">
-          Craftybase is now <strong>Stocksmith</strong> (same team, same
-          software) — our{" "}
-          <Link href="/compare/stocksmith" className="text-bark underline">
-            Stocksmith comparison
+          Searched for the old name? Our{" "}
+          <Link href="/compare/craftybase" className="text-bark underline">
+            Craftybase comparison
           </Link>{" "}
-          covers the rename. Their price climbs with plan features and
-          limits; Dreamward&apos;s climbs only with your revenue. Pricing
-          checked August 26, 2026 — verify current rates at
+          covers the same product pre-rename. Their price climbs with plan
+          features and limits; Dreamward&apos;s climbs only with your
+          revenue. Pricing checked August 26, 2026 — verify current rates at
           stocksmith.io/pricing. Both are good tools — pick the one that
           fits how you sell.
         </p>
       </section>
 
-      {/* Deep-dive — three defensible differentiators */}
+      {/* Deep-dive — the differentiators, framed for the renamed product */}
       <section className="bg-eucalyptus-soft/40 border-y border-sand py-12 sm:py-16">
         <div className="max-w-[1100px] mx-auto px-4 sm:px-8">
           <div className="text-center mb-10">
@@ -159,8 +155,8 @@ export default function CraftybaseComparePage() {
               The three that matter most
             </h2>
             <p className="text-sm text-bark max-w-2xl mx-auto m-0">
-              Where the two tools genuinely diverge — and why it changes your
-              numbers.
+              Same differences that applied to Craftybase — the rename
+              didn&apos;t change the method.
             </p>
           </div>
 
@@ -168,86 +164,48 @@ export default function CraftybaseComparePage() {
             <CompareSection
               num="1"
               title="Your filed numbers stay put"
-              theirCopy="Craftybase (now Stocksmith) uses the rolling weighted-average cost method — every material purchase recalculates the average cost per unit, and manufacturing draws on that current average. It's a valid, IRS-accepted method, but it means a cost you enter today can move the cost-of-goods behind sales you already reported."
+              theirCopy="Stocksmith uses the rolling weighted-average cost method — every material purchase recalculates the average cost per unit, and manufacturing draws on that current average. It's a valid, IRS-accepted method, but it means a cost you enter today can move the cost-of-goods behind sales you already reported."
               ourCopy="Dreamward uses FIFO and locks each sale's cost the moment it sells — drawing down your oldest stock at the price you actually paid. Change a cost today and it applies going forward; a number you already filed never moves."
               highlight
             />
             <CompareSection
               num="2"
               title="Built for booth AND online, not just online"
-              theirCopy="Craftybase is built around handmade inventory and COGS for online sellers. In-person markets — the booth fee, the drive, the cash box — aren't modeled as their own profit-and-loss."
+              theirCopy="Stocksmith is built around handmade inventory and COGS for online sellers. In-person markets — the booth fee, the drive, the cash box — aren't modeled as their own profit-and-loss."
               ourCopy="Dreamward treats every market as a first-class P&L unit: booth fee, auto-tracked mileage, and the day's sales in one place, so you can see which markets actually pay. Your online channels roll into the same ledger."
             />
             <CompareSection
               num="3"
-              title="Every feature on every plan"
-              theirCopy="Craftybase's plans scale by how much you track — transaction and object limits climb with price, so growing can mean paying more to keep doing what you already do."
-              ourCopy="Dreamward includes every feature on every plan and prices by your revenue band instead of usage caps. Your tier auto-adjusts as you grow — no feature gates, no upgrade-to-unlock walls."
+              title="Priced by your size, not your plan tier"
+              theirCopy="Stocksmith's five plans run $20 to $349 per month billed monthly, with features and tracking limits scaling by tier — growing your catalog or history can mean moving up a plan."
+              ourCopy="Dreamward includes every feature on every plan and prices by your revenue band, $10 to $99 per month. Your tier auto-adjusts as your tracked revenue grows — no feature gates, no upgrade-to-unlock walls."
             />
           </div>
-        </div>
-      </section>
-
-      {/* Pricing philosophy */}
-      <section className="max-w-[1100px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
-        <div className="text-center mb-8">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-rose-dark bg-rose-soft px-3 py-1 rounded-full">
-            Built for people. Priced for people.
-          </span>
-          <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-forest m-0 mb-2 mt-3">
-            Priced by your size, not by feature gates
-          </h2>
-          <p className="text-sm text-bark max-w-2xl mx-auto m-0 leading-relaxed">
-            Dreamward includes <strong>every feature on every tier</strong> —
-            FIFO costing, Schedule-C P&amp;L, receipt vault, every
-            integration — from <strong>$10/mo</strong>, with your tier set by
-            your revenue and adjusting automatically as you grow.
-          </p>
-        </div>
-
-        <div className="flex justify-center gap-3 flex-wrap">
-          <Link
-            href="/pricing"
-            className="inline-block py-2.5 px-6 rounded-full bg-eucalyptus text-cream text-sm font-semibold no-underline hover:bg-eucalyptus-dark"
-          >
-            See Dreamward plans &rarr;
-          </Link>
-          <Link
-            href="/compare"
-            className="inline-block py-2.5 px-6 rounded-full bg-cream border border-sand text-eucalyptus-dark text-sm font-semibold no-underline hover:border-eucalyptus"
-          >
-            The full comparison &rarr;
-          </Link>
         </div>
       </section>
 
       <FaqSection
         faqs={[
           {
-            q: "Is Dreamward a good Craftybase (now Stocksmith) alternative?",
-            a: "Yes. Dreamward covers the recipe COGS and real-time inventory makers use Craftybase for, and adds in-person market P&L — booth fee, mileage, and market sales — that Craftybase doesn't model. It starts at $10/month with every feature; Stocksmith's plans run $20 (Pro) to $349 (Growth) per month, with features and limits scaling by tier.",
+            q: "Is Stocksmith the same as Craftybase?",
+            a: "Yes — Stocksmith is Craftybase after a rebrand: same team, same software, new name. Reviews, tutorials, and comparisons written about Craftybase describe the same product you'd be buying as Stocksmith today.",
           },
           {
-            q: "How is Dreamward's costing different from Craftybase's?",
-            a: "Craftybase (Stocksmith) uses rolling weighted-average costing, which recalculates as your material prices change. Dreamward uses FIFO and locks each sale's cost the moment it sells — so a price change today never rewrites the profit on sales you already filed.",
+            q: "Is Dreamward a good Stocksmith alternative?",
+            a: "Yes. Dreamward covers the recipe COGS and real-time inventory makers use Stocksmith for, and adds in-person market P&L — booth fee, mileage, and market-day sales — that Stocksmith doesn't model. It starts at $10/month with every feature included.",
           },
           {
-            q: "Is Dreamward cheaper than Craftybase?",
-            a: "Dreamward starts at $10/month with every feature included, and your tier is set only by your revenue. Stocksmith (formerly Craftybase) lists Pro at $20, Studio at $49, Indie at $99, Business at $199, and Growth at $349 per month billed monthly (about 17% less billed annually), with features and tracking limits scaling by tier. Pricing checked August 26, 2026 — verify current rates at stocksmith.io/pricing.",
+            q: "How do the prices compare?",
+            a: "Dreamward runs $10 to $99 per month, set only by your revenue band, with every feature on every plan. Stocksmith lists Pro at $20, Studio at $49, Indie at $99, Business at $199, and Growth at $349 per month billed monthly (about 17% less billed annually), with features and limits scaling by tier. Pricing checked August 26, 2026 — verify current rates at stocksmith.io/pricing.",
           },
           {
-            q: "Can I move my catalog from Craftybase to Dreamward?",
+            q: "Can I move from Stocksmith to Dreamward?",
             a: "Yes. Paste or import your product catalog (insert-only, so it never overwrites), connect Square (or import a CSV from Shopify/Wix/anywhere) to bring in past orders, and see real margins in minutes. Your data always exports back to CSV — no lock-in.",
-          },
-          {
-            q: "Does Dreamward handle selling at markets and online at the same time?",
-            a: "That's the core of it. Every market is its own P&L — booth fee plus auto-tracked mileage plus the day's sales — and your online channels roll into the same ledger, giving you one honest P&L and one Schedule C across booth and online.",
           },
         ]}
       />
 
-      {/* Bottom CTA — Victoria's real quote (permission given 2026-07-08)
-          lands right before the ask. */}
+      {/* Bottom CTA — Victoria's real quote (permission given 2026-07-08). */}
       <section className="bg-eucalyptus-soft/50 border-t border-sand py-12 sm:py-16">
         <div className="max-w-[800px] mx-auto px-4 sm:px-8 text-center">
           <figure className="m-0 mb-8">
@@ -296,9 +254,9 @@ export default function CraftybaseComparePage() {
           Terms
         </Link>
         <p className="m-0 mt-2">
-          {"\u{00A9}"} {new Date().getFullYear()} Dreamward. Craftybase is a
-          trademark of its respective owner; this page is an independent
-          comparison.
+          {"\u{00A9}"} {new Date().getFullYear()} Dreamward. Stocksmith and
+          Craftybase are trademarks of their respective owner; this page is
+          an independent comparison.
         </p>
       </footer>
     </div>
@@ -376,7 +334,7 @@ function CompareSection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <p className="text-[11px] uppercase tracking-wide text-stone font-semibold m-0 mb-2">
-            Craftybase
+            Stocksmith
           </p>
           <p className="text-sm text-bark leading-relaxed m-0">{theirCopy}</p>
         </div>
