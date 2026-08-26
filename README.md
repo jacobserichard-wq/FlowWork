@@ -165,3 +165,25 @@ session-notes/           Per-sub-session audit/design/build artifacts (gitignore
 ## Status
 
 See [`ROADMAP.md`](./ROADMAP.md) for the full phase breakdown and current state. Phases 0 through 7b shipped as of May 2026; Phase 7c (Schedule C line mapping + quarterly estimates) is the next greenfield arc.
+
+---
+
+## UTM convention (marketing links)
+
+Every Dreamward link used OFF-site (Reddit, Instagram, Etsy listings,
+market-organizer emails, printed QR codes) carries UTM params so channel
+attribution works from day one:
+
+```
+?utm_source={reddit|instagram|etsy|organizer|flyer}&utm_medium=organic&utm_campaign=<specific>
+```
+
+- `utm_source` — the platform, from the fixed list above (extend the list
+  here first so spellings never drift).
+- `utm_medium` — `organic` for unpaid placements; `paid` if ads ever run.
+- `utm_campaign` — the specific push, kebab-case (e.g. `market-day-calculator-launch`,
+  `ig-bio`, `nwi-organizer-outreach`).
+
+Example: `https://godreamward.com/tools/market-day-calculator?utm_source=reddit&utm_medium=organic&utm_campaign=market-day-calculator-launch`
+
+Established 2026-08-26 (SEO work order, Task 7).
